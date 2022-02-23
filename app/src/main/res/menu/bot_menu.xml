@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_home"
+        android:title="@string/home"
+        android:icon="@drawable/home_icon"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_library"
+        android:title="@string/my_library"
+        android:icon="@drawable/library_icon"
+        app:showAsAction="ifRoom"/>
+</menu>
