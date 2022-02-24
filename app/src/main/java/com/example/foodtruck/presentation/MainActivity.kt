@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationUI.setupWithNavController(binding.botNav, navController)
-        hideStatusBars()
+
 
         binding.botNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -54,15 +54,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
-    private fun hideStatusBars() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            @Suppress("DEPRECATION")
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-    }
+
 }

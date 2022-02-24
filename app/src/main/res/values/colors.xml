@@ -12,5 +12,7 @@
     <color name="light_green">#1ED760</color>
     <color name="dark_grey">#191414</color>
     <color name="light_grey">#505050</color>
-    <color name="header_color">#BEFFFFFF</color>
+    <color name="header_color">#FFFFFF</color>
+    <color name="yellow">#FFC400</color>
+
 </resources>
