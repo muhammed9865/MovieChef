@@ -3,6 +3,7 @@ package com.example.foodtruck.presentation.home.adapter
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.foodtruck.Constants
 import com.example.foodtruck.R
 import com.example.foodtruck.data.model.trending.Result
 import com.example.foodtruck.databinding.ListItemMovieBinding
