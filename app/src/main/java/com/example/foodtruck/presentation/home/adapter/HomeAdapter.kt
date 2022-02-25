@@ -3,16 +3,46 @@ package com.example.foodtruck.presentation.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtruck.data.model.trending.Result
-import com.example.foodtruck.databinding.ListItemTrendingBinding
+import com.example.foodtruck.databinding.ListItemMovieBinding
+import com.example.foodtruck.databinding.ListItemSearchResultBinding
 
-class HomeAdapter: ListAdapter<Result, HomeVH>(HomeDiffUtil()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeVH {
-        val binding = ListItemTrendingBinding.inflate(LayoutInflater.from(parent.context))
-        return HomeVH(binding)
+class HomeAdapter(private val isSearch: Boolean) : ListAdapter<Result, RecyclerView.ViewHolder>(HomeDiffUtil()) {
+    private var transferMovie: TransferMovie? = null
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isSearch) {
+            SEARCH_VH
+        } else {
+            HOME_VH
+        }
     }
 
-    override fun onBindViewHolder(holder: HomeVH, position: Int) {
-        holder.bind(getItem(position))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == HOME_VH) {
+            val binding = ListItemMovieBinding.inflate(LayoutInflater.from(parent.context))
+            HomeVH(binding)
+        }else {
+            val binding = ListItemSearchResultBinding.inflate(LayoutInflater.from(parent.context))
+            SearchVH(binding)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HomeVH -> holder.bind(getItem(position), transferMovie)
+            is SearchVH -> holder.bind(getItem(position), transferMovie)
+        }
+    }
+
+    fun setOnTransferMovie(transferMovie: TransferMovie) {
+        this.transferMovie = transferMovie
+    }
+
+
+    companion object {
+        private const val HOME_VH = 1
+        private const val SEARCH_VH = 2
     }
 }

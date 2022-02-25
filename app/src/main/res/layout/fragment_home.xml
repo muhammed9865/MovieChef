@@ -3,46 +3,182 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_grey"
-        tools:context=".presentation.home.HomeFragment">
+        android:background="@color/dark_grey">
 
-        <TextView
-            android:id="@+id/textView"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:padding="@dimen/_5sdp"
-            android:text="@string/trending"
-            android:textColor="@color/header_color"
-            android:textSize="@dimen/_15ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".presentation.home.HomeFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trending_movies_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <ProgressBar
-            android:id="@+id/trending_pb"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/light_green"
-            android:layout_width="0dp"
-            android:layout_margin="@dimen/_5sdp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/trending_movies_rb"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_grey"
+                    app:layout_scrollFlags="snap|scroll|exitUntilCollapsed">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_collapseMode="parallax">
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="8dp"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/trending"
+                            android:textColor="@color/header_color"
+                            android:textSize="@dimen/_15ssp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/trending_movies_rb"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|start"
+                            android:layoutAnimation="@anim/linear_animation"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView" />
+                        <ProgressBar
+                            android:id="@+id/trending_pb"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_marginTop="14dp"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/light_green"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <TextView
+                    android:id="@+id/tv2_explore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/explore"
+                    android:textColor="@color/header_color"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/options_bg"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_3sdp"
+                    android:paddingEnd="0dp"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv2_explore">
+
+                    <CheckBox
+                        android:id="@+id/cb_adult"
+                        style="@style/options_cb"
+                        android:text="@string/adult_content" />
+
+                    <CheckBox
+                        android:id="@+id/cb_top"
+                        style="@style/options_cb"
+                        android:text="@string/top_rated" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/explore_movies_pb"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/light_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/explore_movies_rv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/explore_movies_rv" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/explore_movies_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layoutAnimation="@anim/layout_animation"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:spanCount="3" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/explore_page_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/explore_page_num"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toTopOf="@+id/explore_page_num"
+                    app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24" />
+
+                <TextView
+                    android:id="@+id/explore_page_num"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/circular_shape"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv2_explore"
+                    app:layout_constraintEnd_toStartOf="@+id/explore_page_up"
+                    app:layout_constraintTop_toTopOf="@+id/tv2_explore"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="01" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/explore_page_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/explore_page_num"
+                    app:layout_constraintEnd_toStartOf="@+id/explore_page_num"
+                    app:layout_constraintTop_toTopOf="@+id/explore_page_num"
+                    app:srcCompat="@drawable/ic_baseline_arrow_circle_down_24" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 </layout>

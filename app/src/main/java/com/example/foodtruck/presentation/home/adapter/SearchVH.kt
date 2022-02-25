@@ -5,11 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodtruck.R
 import com.example.foodtruck.data.model.trending.Result
-import com.example.foodtruck.databinding.ListItemMovieBinding
-import kotlinx.coroutines.*
+import com.example.foodtruck.databinding.ListItemSearchResultBinding
 import kotlin.math.floor
 
-class HomeVH(private val binding: ListItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+class SearchVH(private val binding: ListItemSearchResultBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Result, transferMovie: TransferMovie?) {
         binding.apply {
             movieName.text = item.original_title
@@ -49,6 +48,5 @@ class HomeVH(private val binding: ListItemMovieBinding) : RecyclerView.ViewHolde
             }
         }
     }
-
 
 }
