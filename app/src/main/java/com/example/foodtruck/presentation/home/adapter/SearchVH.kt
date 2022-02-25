@@ -18,7 +18,7 @@ class SearchVH(private val binding: ListItemSearchResultBinding): RecyclerView.V
             loadRatePb(item.vote_average)
             movieRateText.text = item.vote_average.toString()
             movieImage.setOnClickListener {
-                transferMovie?.onMovieTransferred(binding.movieImage, item)
+                transferMovie?.onMovieTransferred(item.id)
             }
 
         }

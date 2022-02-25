@@ -8,13 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Fade
 import com.example.foodtruck.R
 import com.example.foodtruck.data.model.trending.Result
 import com.example.foodtruck.data.repository.MoviesRepository
 import com.example.foodtruck.databinding.FragmentHomeBinding
+import com.example.foodtruck.presentation.MainViewModel
 import com.example.foodtruck.presentation.details.DetailsFragment
 import com.example.foodtruck.presentation.home.adapter.HomeAdapter
 import com.example.foodtruck.presentation.home.adapter.TransferMovie
@@ -28,6 +31,7 @@ class HomeFragment : Fragment(), TransferMovie {
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModelFactory(MoviesRepository.getInstance())
     }
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val binding: FragmentHomeBinding by lazy {
         FragmentHomeBinding.inflate(LayoutInflater.from(requireContext()))
     }
@@ -136,7 +140,8 @@ class HomeFragment : Fragment(), TransferMovie {
         private const val TAG = "HomeFragment"
     }
 
-    override fun onMovieTransferred(movie_image: ImageView, movie: Result) {
-
+    override fun onMovieTransferred(movie_id: Int) {
+        mainViewModel.movieId = movie_id
+        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
     }
 }

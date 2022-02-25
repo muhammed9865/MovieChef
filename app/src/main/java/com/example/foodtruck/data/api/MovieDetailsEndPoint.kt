@@ -12,13 +12,13 @@ interface MovieDetailsEndPoint {
 
     @GET("/3/movie/{movie_id}")
     fun getMovieDetails(
+        @Path("movie_id") movieId: Int,
         @Query("api_key") token: String,
-        @Path("movie_id") movieId: Int
     ): Call<MovieDetails>
 
     @GET("/3/movie/{movie_id}/credits")
     fun getMovieCredits(
+        @Path("movie_id") movieId: Int,
         @Query("api_key") token: String,
-        @Path("movie_id") movieId: Int
     ): Call<MovieDetailsCredits>
 }

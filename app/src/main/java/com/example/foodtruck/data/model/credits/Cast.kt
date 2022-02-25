@@ -1,5 +1,7 @@
 package com.example.foodtruck.data.model.credits
 
+import com.example.foodtruck.presentation.details.adapter.DetailsBase
+
 data class Cast(
     val adult: Boolean, // false
     val cast_id: Int, // 2
@@ -13,4 +15,4 @@ data class Cast(
     val original_name: String, // Sami Frey
     val popularity: Double, // 10.496
     val profile_path: String? // /x70K5jc9RozJ04t7b1i1tv0Myyc.jpg
-)
+): DetailsBase()

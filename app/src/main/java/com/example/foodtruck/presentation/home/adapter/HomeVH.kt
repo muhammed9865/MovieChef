@@ -19,7 +19,7 @@ class HomeVH(private val binding: ListItemMovieBinding) : RecyclerView.ViewHolde
             loadRatePb(item.vote_average)
             movieRateText.text = item.vote_average.toString()
             movieImage.setOnClickListener {
-                transferMovie?.onMovieTransferred(binding.movieImage, item)
+                transferMovie?.onMovieTransferred(item.id)
             }
 
         }
