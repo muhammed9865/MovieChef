@@ -9,12 +9,13 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.foodtruck.R
 import com.example.foodtruck.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(LayoutInflater.from(this))
     }
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationUI.setupWithNavController(binding.botNav, navController)
+        navController.addOnDestinationChangedListener(this)
 
 
         binding.botNav.setOnItemSelectedListener { item ->
@@ -50,6 +52,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        when (destination.id) {
+            R.id.detailsFragment -> showBottomNav(false)
+            else -> showBottomNav(true)
+        }
+    }
+
+
+    private fun showBottomNav(show: Boolean) {
+        binding.botNav.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener{
+            override fun onViewAttachedToWindow(p0: View?) {
+              //  p0?.animate()?.translationYBy(50F)?.duration = 500
+            }
+
+            override fun onViewDetachedFromWindow(p0: View?) {
+                p0?.animate()?.translationYBy(-50F)?.duration = 500
+            }
+        })
+        binding.botNav.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -10,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,12 +42,16 @@ class DetailsFragment : Fragment() {
     private val crewAdapter: DetailsAdapter by lazy {
         DetailsAdapter(false)
     }
+    private val castAdapter: DetailsAdapter by lazy {
+        DetailsAdapter(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         render()
         binding.detailsCrewRv.adapter = crewAdapter
+        binding.detailsCastRv.adapter = castAdapter
         lifecycleScope.launch {
             viewModel.intentChannel.send(DetailsIntents.GetMovie(mainViewModel.movieId))
         }
@@ -58,13 +65,15 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        controlSystemBars(hide = true)
     }
 
     override fun onDetach() {
         super.onDetach()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        controlSystemBars(hide = false)
     }
+
+
 
     private fun render() {
         lifecycleScope.launchWhenStarted {
@@ -77,7 +86,8 @@ class DetailsFragment : Fragment() {
                         loadImage(state.movie.logo_image, binding.detailsMovieImage)
                         loadImage(state.movie.backdrop_image, binding.detailsMoviePoster)
                         loadMovieDetails(state.movie)
-                        crewAdapter.submitList(state.movie.crew.filter { it -> it.profile_path != null })
+                        crewAdapter.submitList(state.movie.crew)
+                        castAdapter.submitList(state.movie.cast)
                     }
                     is DetailsViewStates.Error -> {
                         Log.d("Details", "render: ${state.message}")
@@ -123,6 +133,18 @@ class DetailsFragment : Fragment() {
                 castPb.visibility = View.GONE
             }
         }
+    }
+
+    private fun controlSystemBars(hide: Boolean) {
+        val windowInsetsController =
+            ViewCompat.getWindowInsetsController(requireActivity().window.decorView) ?: return
+        // Configure the behavior of the hidden system bars
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        if (hide) {
+        // Hide both the status bar and the navigation bar
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+        }else windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
     }
 
 

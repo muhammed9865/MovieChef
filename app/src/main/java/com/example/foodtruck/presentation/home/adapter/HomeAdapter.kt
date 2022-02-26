@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodtruck.data.model.trending.Result
 import com.example.foodtruck.databinding.ListItemMovieBinding
 import com.example.foodtruck.databinding.ListItemSearchResultBinding
+import com.example.foodtruck.presentation.search.SearchVH
 
 class HomeAdapter(private val isSearch: Boolean) : ListAdapter<Result, RecyclerView.ViewHolder>(HomeDiffUtil()) {
     private var transferMovie: TransferMovie? = null

@@ -8,24 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.foodtruck.R
 import com.example.foodtruck.databinding.FragmentSearchBinding
+import com.example.foodtruck.presentation.MainViewModel
 import com.example.foodtruck.presentation.home.HomeIntents
 import com.example.foodtruck.presentation.home.adapter.HomeAdapter
+import com.example.foodtruck.presentation.home.adapter.TransferMovie
 import com.example.foodtruck.presentation.search.viewmodel.SearchViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
-class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
+class SearchFragment : Fragment(), SearchView.OnQueryTextListener, TransferMovie {
     private val binding: FragmentSearchBinding by lazy {
         FragmentSearchBinding.inflate(LayoutInflater.from(requireContext()))
     }
     private val searchAdapter: HomeAdapter by lazy {
         HomeAdapter(true)
     }
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: SearchViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +41,7 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding.searchView.setOnQueryTextListener(this)
         binding.searchRv.adapter = searchAdapter
-
+        searchAdapter.setOnTransferMovie(this)
 
         return binding.root
     }
@@ -100,6 +105,11 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
 
     companion object {
         private const val TAG = "SearchFragment"
+    }
+
+    override fun onMovieTransferred(movie_id: Int) {
+        mainViewModel.movieId = movie_id
+        findNavController().navigate(R.id.action_searchFragment_to_detailsFragment)
     }
 
 }

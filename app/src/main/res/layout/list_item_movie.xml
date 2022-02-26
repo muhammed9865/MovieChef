@@ -21,6 +21,7 @@
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:transitionName="main_image"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
